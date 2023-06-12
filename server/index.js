@@ -1,20 +1,17 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { ApolloServer } = require('apollo-server');
+const typeDefs=require("../server/graphql/typeDefs/typeDefs.js");
+const resolvers=require("../server/graphql/resolvers/post.js");
+const dotenv=require('dotenv');
+const db = require('../server/config/db.js');
 
-const typeDefs = gql`
-  type Query {
-    books: String
-  }
-`;
+dotenv.config();
 
-const resolvers = {
-    Query: {
-      books: () => "graphql deneme ...",
-    },
-  };
 
   const server =new ApolloServer({typeDefs, resolvers});
 
+  db();
+
   server.listen(5000,()=>{
-    console.log("server is running");
+    console.log("server is running on port....:5000");
   })
 
